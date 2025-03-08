@@ -10,13 +10,13 @@ pub struct Todo {
 }
 
 pub struct Todos {
-    pub todos: Mutex<Vec<Todo>>
+    pub todos: Mutex<Vec<Todo>>,
 }
 
 impl Todos {
     pub fn new() -> Self {
         Self {
-            todos: Mutex::new(vec![])
+            todos: Mutex::new(vec![]),
         }
     }
 
