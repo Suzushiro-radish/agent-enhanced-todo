@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { addTodo, getTodos, updateTodoStatus, deleteTodo, type Todo } from "../commands";
-	
-	let title: string = "";
-	let todos: Todo[] = [];
-	let loading: boolean = true;
+		// Svelte 5のRunes（$state）を使用してリアクティブな変数を宣言
+	let title = $state("");
+	let todos = $state<Todo[]>([]);
+	let loading = $state(true);
 	
 	// TODOリストを更新する関数
 	async function refreshTodos() {
@@ -29,7 +29,8 @@
 		window.removeEventListener('todo-updated', handleTodoUpdated);
 	});
 	
-	async function handleSubmit() {
+	async function handleSubmit(event: SubmitEvent) {
+		event.preventDefault();
 		if (title.trim() !== "") {
 			await addTodo(title);
 			title = ""; // 入力欄をクリア
@@ -44,11 +45,10 @@
 		await deleteTodo(id);
 	}
 </script>
-
 <main class="container">
 	<h1>TODOリスト</h1>
 	
-	<form on:submit|preventDefault={handleSubmit} class="todo-form">
+	<form onsubmit={handleSubmit} class="todo-form">
 		<input 
 			placeholder="タスクを入力..." 
 			bind:value={title} 
@@ -69,15 +69,14 @@
 					<input 
 						type="checkbox" 
 						checked={todo.done} 
-						on:change={() => toggleTodoStatus(todo)}
+						onchange={() => toggleTodoStatus(todo)}
 					/>
 					<span class={todo.done ? 'todo-done' : ''}>{todo.name}</span>
-					<button class="delete-button" on:click={() => removeTodo(todo.id)}>削除</button>
+					<button class="delete-button" onclick={() => removeTodo(todo.id)}>削除</button>
 				</li>
 			{/each}
 		</ul>
 	{/if}
 </main>
-
 <style>
 </style>
