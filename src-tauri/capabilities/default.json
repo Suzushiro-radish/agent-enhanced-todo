@@ -7,8 +7,6 @@
   ],
   "permissions": [
     "core:default",
-    "shell:allow-open",
-    "sql:default",
-    "sql:allow-execute"
+    "shell:allow-open"
   ]
 }
