@@ -1,0 +1,10 @@
+[package]
+name = "agent-enhanced-todo-cli"
+version = "0.1.0"
+description = "A CLI tool for managing tasks"
+authors = ["d-takagi"]
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.97"
+clap = { version = "4.5.34", features = ["derive"] }
